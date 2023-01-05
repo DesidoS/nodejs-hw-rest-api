@@ -14,14 +14,12 @@ async function writeDb(db) {
   await fs.writeFile(contactsPath, JSON.stringify(db, null, 2));
 }
 
-// const listContacts = async () => {};
 async function listContacts() {
   const list = await fs.readFile(contactsPath, { encoding: "utf8" });
   const contactList = JSON.parse(list);
   return contactList;
 }
 
-// const getContactById = async (contactId) => {};
 async function getContactById(contactId) {
   const db = await readDb();
   const contactById = db.filter((contact) => contact.id === contactId);
@@ -29,15 +27,12 @@ async function getContactById(contactId) {
   return contactById;
 }
 
-// const removeContact = async (contactId) => { };
 async function removeContact(contactId) {
   const db = await readDb();
   const newDb = db.filter((contact) => contact.id !== contactId);
   await writeDb(newDb);
 }
 
-// const addContact = async (body) => { }
-// async function addContact(name, email, phone) {
 async function addContact({ name, email, phone }) {
   const id = uuidv4();
   const contact = { id, name, email, phone };
@@ -46,7 +41,6 @@ async function addContact({ name, email, phone }) {
   await writeDb(db);
 }
 
-// const updateContact = async (contactId, body) => { };
 async function updateContact(contactId, body) {
   const db = await readDb();
 
