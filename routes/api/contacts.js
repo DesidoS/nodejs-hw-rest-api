@@ -7,25 +7,26 @@ const {
   deleteContact,
   changeContact,
   changeFavoriteContact,
-} = require("../../controllers/contacts.controller");
+} = require("../../controllers");
 const { favoriteSchema, addContactSchema } = require("../../schemas/contacts");
 const {
   validationFavorite,
   tryCatchWrapper,
-  validationContact,
+  validation,
+  auth,
 } = require("../../middlewares/");
 
-router.get("/", tryCatchWrapper(getContacts));
+router.get("/", auth, tryCatchWrapper(getContacts));
 
 router.get("/:contactId", tryCatchWrapper(getContact));
 
-router.post("/", tryCatchWrapper(createContact));
+router.post("/", auth, tryCatchWrapper(createContact));
 
 router.delete("/:contactId", tryCatchWrapper(deleteContact));
 
 router.put(
   "/:contactId",
-  validationContact(addContactSchema),
+  validation(addContactSchema),
   tryCatchWrapper(changeContact)
 );
 
