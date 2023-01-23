@@ -1,9 +1,11 @@
 const tryCatchWrapper = require("./tryCatchWrapper");
-const validationContact = require("./validation");
+const validation = require("./validation");
 const validationFavorite = require("./validationFavorite");
+const auth = require("./auth");
 
 module.exports = {
-  validationContact,
+  validation,
   tryCatchWrapper,
   validationFavorite,
+  auth,
 };
