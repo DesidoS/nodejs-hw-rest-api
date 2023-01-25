@@ -2,6 +2,7 @@ const { User } = require("../models/user");
 const { Conflict, Unauthorized } = require("http-errors");
 const { SECRET_KEY } = process.env;
 const bcrypt = require("bcryptjs");
+const gravatar = require("gravatar");
 jwt = require("jsonwebtoken");
 
 const register = async (req, res) => {
@@ -10,12 +11,18 @@ const register = async (req, res) => {
   if (user) {
     throw new Conflict(`User with ${email} already exists`);
   }
+  const avatarURL = gravatar.url(email);
   const hashedPassword = await bcrypt.hashSync(
     password,
     bcrypt.genSaltSync(10)
   );
-  const result = await User.create({ name, email, password: hashedPassword });
-  res.status(201).json(req.body);
+  const result = await User.create({
+    name,
+    email,
+    password: hashedPassword,
+    avatarURL,
+  });
+  res.status(201).json(result);
 };
 
 const login = async (req, res) => {
