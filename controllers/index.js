@@ -1,4 +1,4 @@
-const getCurrent = require("./user");
+const { getCurrent, updateAvatar } = require("./user");
 const { register, login, logout } = require("./auth");
 const {
   getContacts,
@@ -21,4 +21,5 @@ module.exports = {
   login,
   logout,
   getCurrent,
+  updateAvatar,
 };

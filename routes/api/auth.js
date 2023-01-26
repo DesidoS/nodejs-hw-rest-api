@@ -1,11 +1,9 @@
-const express = require("express");
+const router = require("express").Router();
 
 const { register, login, logout } = require("../../controllers");
 const { tryCatchWrapper, validation, auth } = require("../../middlewares");
 
 const { joiLoginSchema, joiRegisterSchema } = require("../../models/user");
-
-const router = express.Router();
 
 router.post(
   "/register",
