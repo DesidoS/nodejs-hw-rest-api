@@ -1,5 +1,10 @@
-const { getCurrent, updateAvatar } = require("./user");
 const { register, login, logout } = require("./auth");
+const {
+  getCurrent,
+  updateAvatar,
+  verifyEmail,
+  verifyEmailResending,
+} = require("./user");
 const {
   getContacts,
   getContact,
@@ -22,4 +27,6 @@ module.exports = {
   logout,
   getCurrent,
   updateAvatar,
+  verifyEmail,
+  verifyEmailResending,
 };
