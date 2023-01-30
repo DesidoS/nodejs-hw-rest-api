@@ -1,11 +1,49 @@
+const sendMail = require("../helpers/sendEmail");
 const { User } = require("../models/user");
-const path = require("path");
+const { NotFound, BadRequest } = require("http-errors");
 const fs = require("fs/promises");
+const path = require("path");
 const Jimp = require("jimp");
+
+const verifyEmail = async (req, res) => {
+  const { verificationToken } = req.params;
+  const user = await User.findOne({ verificationToken });
+  if (!user) {
+    throw new NotFound();
+  }
+  await User.findByIdAndUpdate(user._id, {
+    verify: true,
+    verificationToken: null,
+  });
+  res.json({ message: "Verifu success" });
+};
+
+const verifyEmailResending = async (req, res) => {
+  const { email } = req.body;
+  const user = await User.findOne({ email });
+  if (!user) {
+    throw new NotFound();
+  }
+  if (user.verify) {
+    throw new BadRequest("Verification has already been passed");
+  }
+  const mail = {
+    to: email,
+    subject: "Verification email",
+    html: `<a target="_blank" href="http://localhost:3000/api/users/verify/${user.verificationToken}">Follow this link, for verification </a>`,
+  };
+
+  sendMail(mail);
+  res.json({ message: "Check youre email" });
+};
 
 const getCurrent = async (req, res) => {
   const { name, email } = req.user;
-  res.json(req.user, { name, email });
+
+  res.json({
+    name,
+    email,
+  });
 };
 
 const avatarsDir = path.join(__dirname, "../", "public", "avatars");
@@ -42,4 +80,6 @@ const updateAvatar = async (req, res) => {
 module.exports = {
   getCurrent,
   updateAvatar,
+  verifyEmail,
+  verifyEmailResending,
 };
