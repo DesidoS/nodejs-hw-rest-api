@@ -21,7 +21,7 @@ const register = async (req, res) => {
   const mail = {
     to: email,
     subject: "Verification email",
-    html: `<a target="_blank" href="http://localhost:3000/api/users/verify/${verificationToken}">Hi ${name}.Follow this link, for verification </a>`,
+    html: `<a target="_blank" href="http://localhost:8080/api/users/verify/${verificationToken}">Hi ${name}.Follow this link, for verification </a>`,
   };
 
   sendMail(mail);
@@ -31,7 +31,7 @@ const register = async (req, res) => {
     email,
     password: hashedPassword,
     avatarURL,
-    verificationToken,
+    // verificationToken,
   });
   res.status(201).json(result);
 };
