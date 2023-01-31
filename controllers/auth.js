@@ -31,7 +31,7 @@ const register = async (req, res) => {
     email,
     password: hashedPassword,
     avatarURL,
-    // verificationToken,
+    verificationToken,
   });
   res.status(201).json(result);
 };
