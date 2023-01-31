@@ -21,7 +21,7 @@ const register = async (req, res) => {
   const mail = {
     to: email,
     subject: "Verification email",
-    html: `<a target="_blank" href="http://localhost:8080/api/users/verify/${verificationToken}">Hi ${name}.Follow this link, for verification </a>`,
+    html: `<a target="_blank" href="https://contacts-4uyr.onrender.com/api/users/verify/${verificationToken}">Hi ${name}.Follow this link, for verification </a>`,
   };
 
   sendMail(mail);
